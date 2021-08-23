@@ -1,0 +1,17 @@
+<settings>
+ <mirrors>
+    <mirror>
+          <id>nexus</id>
+          <mirrorOf>*</mirrorOf>
+          <name>Local nexus repository</name>
+          <url>http://nexus.apps.ocp4.rp.com:8081/repository/maven-releases/</url>
+    </mirror>
+    <mirror>
+          <id>nexus_1</id>
+          <mirrorOf>*</mirrorOf>
+          <name>redhat nexus repository</name>
+          <url>http://nexus.apps.ocp4.rp.com:8081/repository/maven-proxy1/</url>
+    </mirror>
+ </mirrors>
+</settings>
+
