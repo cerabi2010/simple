@@ -5,8 +5,6 @@ items:
 - apiVersion: v1
   kind: BuildConfig
   metadata:
-    annotations:
-      pipeline.alpha.openshift.io/uses: '[{"name": "jws-app", "namespace": "", "kind": "DeploymentConfig"}]'
     name: jws-app-pipeline
   spec:
     source:
