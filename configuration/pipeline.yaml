@@ -16,7 +16,7 @@ items:
     strategy:
       type: JenkinsPipeline
       jenkinsPipelineStrategy:
+        jenkinsfilePath: Jenkinsfile
         env:
           - name: MAVEN_MIRROR_URL
             value: http://nexus.apps.ocp4.rp.com:8081/repository/maven-proxy1/
-        jenkinsfilePath: Jenkinsfile

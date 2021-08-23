@@ -4,12 +4,14 @@ node('maven') {
     sh " pwd ; id;"
     git url: "https://github.com/cerabi2010/simple.git"
   }
+
   stage('Maven Build') {
 //    sh "cp configuration/settings.xml ~/.m2/"
 //    sh "cp settings.xml ~/.m2/"
     sh "mvn package"
     sh "ls  *"
   }
+
   stage('Test') {
     parallel(
       "Cart Tests": {
@@ -20,6 +22,7 @@ node('maven') {
       }
     )
   }
+
   stage('Build Image') {
     sh "oc start-build jws-app --from-file=target/ROOT.war --follow"
   }
