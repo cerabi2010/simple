@@ -1,0 +1,78 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"pipeline-sample:latest","namespace":"fff"},"fieldPath":"spec.template.spec.containers[?(@.name==\"pipeline-sample\")].image"}]'
+    labels:
+      app: pipeline-sample
+      app.kubernetes.io/component: pipeline-sample
+      app.kubernetes.io/instance: pipeline-sample
+      app.kubernetes.io/name: pipeline-sample
+    name: pipeline-sample
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: pipeline-sample
+    strategy: {}
+    template:
+      metadata:
+        annotations: {}
+        labels:
+          deployment: pipeline-sample
+      spec:
+        containers:
+        - image: ' '
+          name: pipeline-sample
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations: {}
+    labels:
+      app: pipeline-sample
+      app.kubernetes.io/component: pipeline-sample
+      app.kubernetes.io/instance: pipeline-sample
+      app.kubernetes.io/name: pipeline-sample
+    name: pipeline-sample
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 80-tcp
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deployment: pipeline-sample
+  status:
+    loadBalancer: {}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+    labels:
+      app: pipeline-sample
+      app.kubernetes.io/component: pipeline-sample
+      app.kubernetes.io/instance: pipeline-sample
+      app.kubernetes.io/name: pipeline-sample
+    name: pipeline-sample
+  spec:
+    host: pipeline-sample-fff.apps.ocp4.rp.com
+    port:
+      targetPort: 8080
+    to:
+      kind: Service
+      name: pipeline-sample
+      weight: 100
+    wildcardPolicy: None
+kind: List
+metadata: {}

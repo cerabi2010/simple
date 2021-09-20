@@ -1,0 +1,20 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    app: pipeline-sample
+    app.kubernetes.io/component: pipeline-sample
+    app.kubernetes.io/instance: pipeline-sample
+    app.kubernetes.io/name: pipeline-sample
+  name: pipeline-sample
+  namespace: ddd
+spec:
+  host: pipeline-sample-ddd.apps.ocp4.rp.com
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: pipeline-sample
+    weight: 100
+  wildcardPolicy: None
